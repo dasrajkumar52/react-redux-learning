@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const Navbar = () => {
   return (
@@ -8,6 +9,7 @@ export const Navbar = () => {
 
         <div className="navContent">
           <div className="navLinks"></div>
+          <Link to="/">Posts</Link>
         </div>
       </section>
     </nav>
