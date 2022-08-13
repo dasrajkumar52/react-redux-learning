@@ -42,10 +42,28 @@ const postsSlice = createSlice({
                     }
                 }
             }
+        },
+        postDeleted: {
+            reducer: (state, action) => {
+                const { id, title, content } = action.payload
+                const existingPost = state.find(post => post.id == id)
+                if(existingPost) { 
+                    state.pop(existingPost); 
+                }
+            },
+            prepare: (id, title, content) => {
+                return {
+                    payload: {
+                        id: id,
+                        title: title,
+                        content: content
+                    }
+                }
+            }
         }
     }
 });
 
-export const { postAdded, postUpdated } = postsSlice.actions;
+export const { postAdded, postUpdated, postDeleted } = postsSlice.actions;
 
 export default postsSlice.reducer;
