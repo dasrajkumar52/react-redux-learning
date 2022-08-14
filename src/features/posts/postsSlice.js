@@ -1,9 +1,8 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-import { title } from "faker/lib/locales/az";
 
 const initialState = [
-    { id: '1', title: 'First Post!', content: 'Hello!' },
-    { id: '2', title: 'Second Post', content: 'More text' }
+    { id: '1', title: 'First Post!', content: 'Hello!', userId: 1 },
+    { id: '2', title: 'Second Post', content: 'More text', userId: 0 }
 ];
 
 const postsSlice = createSlice({
@@ -14,12 +13,13 @@ const postsSlice = createSlice({
             reducer: (state, action) => {
                 state.push(action.payload)
             },
-            prepare: (title, content) => {
+            prepare: (title, content, userId) => {
                 return {
                     payload: {
                         id: nanoid(),
                         title: title,
-                        content: content
+                        content: content,
+                        userId: userId
                     }
                 }
             }
@@ -63,6 +63,12 @@ const postsSlice = createSlice({
         }
     }
 });
+
+export const selectAllPosts = state => state.posts
+
+export const selectPostById = (state, postId) =>
+  state.posts.find(post => post.id === postId)
+
 
 export const { postAdded, postUpdated, postDeleted } = postsSlice.actions;
 
